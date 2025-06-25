@@ -16,3 +16,58 @@ spring:
       hibernate:
         format_sql: true
         dialect: org.hibernate.dialect.MySQL8Dialect
+
+# tmdb 관련 설정 -> 환경변수로 관리
+tmdb:
+  api:
+    # 필수 설정
+    api-key: ${TMDB_API_KEY:}
+    base-url: ${TMDB_BASE_URL:https://api.themoviedb.org/3}
+    image-base-url: ${TMDB_IMAGE_BASE_URL:https://image.tmdb.org/t/p}
+
+    # 지역화 설정
+    language: ${TMDB_LANGUAGE:ko-KR}
+    region: ${TMDB_REGION:KR}
+
+    # 페이징 및 성능 설정
+    page-size: ${TMDB_PAGE_SIZE:20}
+    max-retry-count: ${TMDB_MAX_RETRY:3}
+
+    # 캐시 설정
+    cache:
+      default-expiration-minutes: ${TMDB_CACHE_EXPIRATION:60}
+      movie-details-expiration-minutes: 120
+      search-results-expiration-minutes: 30
+      enabled: ${TMDB_CACHE_ENABLED:true}
+
+    # 이미지 크기 설정
+    image-size:
+      poster: ${TMDB_POSTER_SIZE:w500}
+      backdrop: ${TMDB_BACKDROP_SIZE:w1280}
+      profile: ${TMDB_PROFILE_SIZE:w185}
+      still: ${TMDB_STILL_SIZE:w300}
+
+    # Rate Limiting
+    rate-limit:
+      requests-per-second: ${TMDB_RATE_LIMIT:35}
+      enabled: ${TMDB_RATE_LIMIT_ENABLED:true}
+
+    # 타임아웃 설정
+    timeout:
+      connect: ${TMDB_CONNECT_TIMEOUT:10s}
+      read: ${TMDB_READ_TIMEOUT:30s}
+
+    # 로깅 설정
+    logging:
+      enabled: ${TMDB_LOGGING_ENABLED:true}
+      mask-api-key: true
+
+    # endpoints
+    endpoints:
+      popular-movies: /movie/popular
+      now-playing: /movie/now_playing
+      upcoming: /movie/upcoming
+      search-movie: /search/movie
+      movie-details: /movie/{movieId}
+      movie-credits: /movie/{movieId}/credits
+      genre-list: /genre/movie/list
